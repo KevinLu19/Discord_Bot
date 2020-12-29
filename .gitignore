@@ -1,0 +1,11 @@
+.vscode/
+.vscode/*
+*.pyc
+__pycache__/
+*/.log
+
+src/twitterFetcher/twitter_credentials.py
+src/twitterFetcher/twitter.py
+
+*/.bat
+*/.sh
