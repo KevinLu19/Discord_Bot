@@ -9,6 +9,8 @@ src/twitterFetcher/twitter.py
 
 src/discord/twitter_user/User.db
 
+Yuna2.0\main.py
+
 find . -type f -name *.log | cut -c 3-
 
 */.bat
