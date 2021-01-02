@@ -61,7 +61,8 @@ def find_searched_input(searching_user, driver):
     return True
 
 def generate_tweet_id(tweet):
-    return "".join(tweet) # Formulates a unique id to each tweet by combining the tweet itself.
+    return "".join(str(tweet)) # Formulates a unique id to each tweet by combining the tweet itself.
+
 
 def collect_all_tweet_from_view(driver, lookback_limit = 10):
     page_cards = driver.find_elements_by_xpath('//div[@data-testid="tweet"]')
@@ -69,9 +70,9 @@ def collect_all_tweet_from_view(driver, lookback_limit = 10):
     if len(page_cards) <= lookback_limit:
         return page_cards
     else:
-        return page_cards[-lookback_limit:]
+        return page_cards[-lookback_limit:] # Grabs the last 10 tweets.
 
-def extact_tweet_data(card):
+def extact_tweet_data(card, driver):
     try:
         user = card.find_element_by_xpath('.//span').text
     except exceptions.NoSuchElementException:
@@ -86,9 +87,23 @@ def extact_tweet_data(card):
         postdate = card.find_element_by_xpath('.//time').get_attribute('datetime')
     except exceptions.NoSuchElementException:
         return
+    try:
+        page_url = driver.current_url
+    except:
+        print("Cannot retreive url from address")
+        return
+    # Still needs work. Needs to somehow grab the src from tweets.
+    # try:
+    #     tweet_image = card.find_element_by_xpath(".//a/@href")
+    # except exceptions.NoSuchElementException:
+    #     return
 
-    tweet = (user, handle, postdate)
-    return tweet
+    # Super simplified idea. Click on the latest tweet and grab the url from address.
+
+    # tweet = (user, handle, postdate, page_url)
+    # return tweet
+
+    return page_url
 
 def twitter_main(twitter_search):
     driver = fire_fox_browser()
@@ -106,7 +121,10 @@ def twitter_main(twitter_search):
 
     for tweet in tweets:
         try:
-            each_tweet = extact_tweet_data(tweet)
+            each_tweet = extact_tweet_data(tweet, driver)
+
+            for item in each_tweet:
+                print (item)
 
         except exceptions.StaleElementReferenceException:
             continue
@@ -120,4 +138,4 @@ def twitter_main(twitter_search):
             unique_tweet.add(tweet_id)
 
 if __name__ == "__main__":
-    twitter_main("Noahgraphicz")
+    twitter_main("mangadex")
