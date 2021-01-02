@@ -9,7 +9,7 @@ src/twitterFetcher/twitter.py
 
 src/discord/twitter_user/User.db
 
-Yuna2.0\main.py
+testing_file.py
 
 find . -type f -name *.log | cut -c 3-
 
