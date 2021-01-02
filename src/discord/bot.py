@@ -2,9 +2,9 @@ from discord.ext.commands.core import command
 from discord.ext import commands
 from . import mal_anime
 from . import mal_manga
+from .twitter_user_storage import user_storage
 
 import discord
-import tweepy
 import os
 import platform
 import subprocess
@@ -77,6 +77,17 @@ async def youtube(ctx, *,video_title):
         print (e)
 
         await ctx.send(f"<@!{discord_id}> Uh-oh some moron tried to break the command. SMH")
+
+@bot_command.command(name="users", help = "Stores the usernames for Twitter")
+async def user(ctx, twitter_usernames):
+    pass
+
+@bot_command.command(name = "list", help = "Returns all of the stored usernames from database")
+async def user_list(ctx):
+    results = user_storage.print_all_entries()
+
+    for names in results:
+        await ctx.send("Here are the stored names in the database.", names)
 
 @bot_command.command(name="twitter", help = "Retrevie latest tweet from set user")
 async def twitter(ctx, twitter_user):

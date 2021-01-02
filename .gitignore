@@ -7,5 +7,9 @@ __pycache__/
 src/twitterFetcher/twitter_credentials.py
 src/twitterFetcher/twitter.py
 
+src/discord/twitter_user/User.db
+
+find . -type f -name *.log | cut -c 3-
+
 */.bat
 */.sh
